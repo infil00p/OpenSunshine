@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Welcome to OpenSunshine</title>
+        <link href="/static/style.css" rel="stylesheet" />
+        <script src="/static/find_code.js"></script>
+    </head>
+    <body>
+        <div id="intro">
+            <p>
+                It is recommended that you use Tor before using this service.  While the demo site DOES NOT log IP addresses, 
+                you should make sure that the SSL certificate is coming from a trusted site.  If you do not see an SSL certificate, 
+                you should NOT submit documents.
+            </p>
+       </div>
+       <div id="form">
+            <form id="publish" method="post" action="/submit/" enctype="multipart/form-data">
+                <table>
+                    <tr><td>Upload File:</td><td><input type="file" name="document" /></td></tr>
+                    <tr><td>Description: (Optional)</td><td></td></tr>
+                    <tr><td colspan="2"><textarea name="description"></textarea></td><td></td></tr>
+                </table>
+                <input type="submit" name="submit" />
+            </form>
+       </div>
+    </body>
+</html>
