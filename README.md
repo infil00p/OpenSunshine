@@ -20,4 +20,15 @@ The goal is to write an application that can make the problem of leaking data a 
 a software development task.  This should be the simplest way one can upload a file.  The more features, the more things can break.  If other people
 want to work on it, PLEASE FORK THIS SOFTWARE.  None of us are as smart as all of us.
 
+Question: Are you going to run a Whistleblower website?
+Answer: No.  I'm Canadian and that activity is illegal under the Security of Information Act, and the Criminal Code of Canada. 
+
+Question: If you're not running a site, why did you write it?
+Answer: I got sick of the excuses OpenLeaks and WikiLeaks were using to not accept documents.  Based on conversations with legal professionals, the issue of 
+whistleblowing is more legal than it is technical, and there needs to be an independent press for the countries that are unable to offer legal source protection 
+for journalists (such as Canada).
+
+Question: What licence is this code under?
+Answer: 3-Clause BSD.  I do not endorse any of the activities taken with this code for obvious legal reasons
+
 
