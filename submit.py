@@ -1,25 +1,22 @@
-import os
+import os, gnupg
 from flask import Flask, redirect, url_for
 from flask import render_template
 from flask import request
 from werkzeug import secure_filename
 from pyPdf import PdfFileReader, PdfFileWriter
 
-TMP_FOLDER = '/media/dropdrive'
-ALLOWED_EXTENSIONS = set(['txt', 'pdf'])
+#This can handle the tmp folders
+UPLOAD_FOLDER = 'data/'
+EDITOR = 'bowserj@paroxysms.ca'
 
 app = Flask(__name__)
 
 @app.route("/")
 def form():
-    if(os.path.isfile("tmp/dropfile")):
+    if(os.path.exists(UPLOAD_FOLDER)):
         return render_template('index.html')
     else:
         return render_template('maintenance.html')
-
-def allowed_file(filename):
-    return '.' in filename and \
-               filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
 @app.route("/success")
@@ -38,11 +35,21 @@ def write_pdf_data(input_file):
     num_pages = in_file.getNumPages()
     #Copy the pages
     for i in range(0, num_pages):
-        output.addPage(input.getPage(i))
+        output.addPage(in_file.getPage(i))
     output_filename = os.path.join(UPLOAD_FOLDER, secure_filename(input_file.filename))
     outputStream = file(output_filename, "wb")
     output.write(outputStream)
 
+# If we can load the file in memory, then encrypt, that'd be better
+def encrypt_file(input_file):
+    gpg = gnupg.GPG()
+    fileStream = open(input_file)
+    gpg_data = gpg.encrypt_file(fileStream, EDITOR)
+    output = open(input_file + ".gpg", "w")
+    output.write(str(gpg_data))
+    output.close()
+    os.remove(input_file)
+    return redirect(url_for('success', filename=input_file))
 
 @app.route("/submit/", methods=["POST"])
 def upload():
@@ -55,12 +62,13 @@ def upload():
             success = False
             if(doctype == "pdf"):
                 write_pdf_data(file)
-                success = True
+                success = True               
             else:
                 success = True
                 file.save(os.path.join(UPLOAD_FOLDER, filename))
             if(success):
-                return redirect(url_for('success',filename=filename))
+                return encrypt_file(os.path.join(UPLOAD_FOLDER, filename))
+                # return redirect(url_for('success',filename=filename))
             else:
                 return redirect(url_for('fail',filename=filename))
 
