@@ -14,10 +14,9 @@ What this software DOES NOT do:
  * This software alone will NOT save lives.  It's written as a starting point to prove a point.
 
 What the goal of this software is:
+
  * To prove that 10 hours of messing around with Flask can create something useful
 
 The goal is to write an application that can make the problem of submitting data securely a pure Systems Administration task, and not 
 a software development task.  This should be the simplest way one can upload a file.  The more features, the more things can break.  I highly recommend that smarter 
 people fork this software and work on it.  If there's a security flaw in any of the libraries that it uses, please submit bugs and patches to the upstream projects.
-
-.
